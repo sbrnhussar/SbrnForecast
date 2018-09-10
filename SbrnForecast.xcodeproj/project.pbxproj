@@ -8,11 +8,18 @@
 
 /* Begin PBXBuildFile section */
 		58A044172136D7BF005F83E3 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 58A044162136D7BF005F83E3 /* AppDelegate.swift */; };
-		58A044192136D7BF005F83E3 /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 58A044182136D7BF005F83E3 /* ViewController.swift */; };
+		58A044192136D7BF005F83E3 /* CitiesVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 58A044182136D7BF005F83E3 /* CitiesVC.swift */; };
 		58A0441C2136D7BF005F83E3 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 58A0441A2136D7BF005F83E3 /* Main.storyboard */; };
 		58A0441E2136D7C1005F83E3 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 58A0441D2136D7C1005F83E3 /* Assets.xcassets */; };
 		58A044212136D7C1005F83E3 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 58A0441F2136D7C1005F83E3 /* LaunchScreen.storyboard */; };
 		58A0442C2136D7C2005F83E3 /* SbrnForecastTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 58A0442B2136D7C2005F83E3 /* SbrnForecastTests.swift */; };
+		58A044372136D835005F83E3 /* ForecastVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 58A044362136D835005F83E3 /* ForecastVC.swift */; };
+		58A044392136D85D005F83E3 /* CitiesTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 58A044382136D85D005F83E3 /* CitiesTableViewCell.swift */; };
+		58A0443B2136D88A005F83E3 /* DailyForecastTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 58A0443A2136D88A005F83E3 /* DailyForecastTableViewCell.swift */; };
+		58A0443D2136D89C005F83E3 /* City.swift in Sources */ = {isa = PBXBuildFile; fileRef = 58A0443C2136D89B005F83E3 /* City.swift */; };
+		58A0443F2136D8CF005F83E3 /* SQLiteConnection.swift in Sources */ = {isa = PBXBuildFile; fileRef = 58A0443E2136D8CF005F83E3 /* SQLiteConnection.swift */; };
+		58A044412136D908005F83E3 /* YahooResponseStruct.swift in Sources */ = {isa = PBXBuildFile; fileRef = 58A044402136D908005F83E3 /* YahooResponseStruct.swift */; };
+		58A044432136D91B005F83E3 /* DailyForecast.swift in Sources */ = {isa = PBXBuildFile; fileRef = 58A044422136D91B005F83E3 /* DailyForecast.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -28,7 +35,7 @@
 /* Begin PBXFileReference section */
 		58A044132136D7BF005F83E3 /* SbrnForecast.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = SbrnForecast.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		58A044162136D7BF005F83E3 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
-		58A044182136D7BF005F83E3 /* ViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewController.swift; sourceTree = "<group>"; };
+		58A044182136D7BF005F83E3 /* CitiesVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CitiesVC.swift; sourceTree = "<group>"; };
 		58A0441B2136D7BF005F83E3 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
 		58A0441D2136D7C1005F83E3 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		58A044202136D7C1005F83E3 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
@@ -36,6 +43,13 @@
 		58A044272136D7C2005F83E3 /* SbrnForecastTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = SbrnForecastTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		58A0442B2136D7C2005F83E3 /* SbrnForecastTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SbrnForecastTests.swift; sourceTree = "<group>"; };
 		58A0442D2136D7C2005F83E3 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		58A044362136D835005F83E3 /* ForecastVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ForecastVC.swift; sourceTree = "<group>"; };
+		58A044382136D85D005F83E3 /* CitiesTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CitiesTableViewCell.swift; sourceTree = "<group>"; };
+		58A0443A2136D88A005F83E3 /* DailyForecastTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DailyForecastTableViewCell.swift; sourceTree = "<group>"; };
+		58A0443C2136D89B005F83E3 /* City.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = City.swift; sourceTree = "<group>"; };
+		58A0443E2136D8CF005F83E3 /* SQLiteConnection.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SQLiteConnection.swift; sourceTree = "<group>"; };
+		58A044402136D908005F83E3 /* YahooResponseStruct.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = YahooResponseStruct.swift; sourceTree = "<group>"; };
+		58A044422136D91B005F83E3 /* DailyForecast.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DailyForecast.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -78,7 +92,14 @@
 			isa = PBXGroup;
 			children = (
 				58A044162136D7BF005F83E3 /* AppDelegate.swift */,
-				58A044182136D7BF005F83E3 /* ViewController.swift */,
+				58A044182136D7BF005F83E3 /* CitiesVC.swift */,
+				58A0443A2136D88A005F83E3 /* DailyForecastTableViewCell.swift */,
+				58A0443C2136D89B005F83E3 /* City.swift */,
+				58A044402136D908005F83E3 /* YahooResponseStruct.swift */,
+				58A044422136D91B005F83E3 /* DailyForecast.swift */,
+				58A0443E2136D8CF005F83E3 /* SQLiteConnection.swift */,
+				58A044382136D85D005F83E3 /* CitiesTableViewCell.swift */,
+				58A044362136D835005F83E3 /* ForecastVC.swift */,
 				58A0441A2136D7BF005F83E3 /* Main.storyboard */,
 				58A0441D2136D7C1005F83E3 /* Assets.xcassets */,
 				58A0441F2136D7C1005F83E3 /* LaunchScreen.storyboard */,
@@ -197,7 +218,14 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				58A044192136D7BF005F83E3 /* ViewController.swift in Sources */,
+				58A044412136D908005F83E3 /* YahooResponseStruct.swift in Sources */,
+				58A044392136D85D005F83E3 /* CitiesTableViewCell.swift in Sources */,
+				58A044432136D91B005F83E3 /* DailyForecast.swift in Sources */,
+				58A0443B2136D88A005F83E3 /* DailyForecastTableViewCell.swift in Sources */,
+				58A0443D2136D89C005F83E3 /* City.swift in Sources */,
+				58A044372136D835005F83E3 /* ForecastVC.swift in Sources */,
+				58A0443F2136D8CF005F83E3 /* SQLiteConnection.swift in Sources */,
+				58A044192136D7BF005F83E3 /* CitiesVC.swift in Sources */,
 				58A044172136D7BF005F83E3 /* AppDelegate.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -360,6 +388,7 @@
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CODE_SIGN_STYLE = Automatic;
 				INFOPLIST_FILE = SbrnForecast/Info.plist;
+				IPHONEOS_DEPLOYMENT_TARGET = 11.4;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
@@ -377,6 +406,7 @@
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CODE_SIGN_STYLE = Automatic;
 				INFOPLIST_FILE = SbrnForecast/Info.plist;
+				IPHONEOS_DEPLOYMENT_TARGET = 11.4;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
