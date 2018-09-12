@@ -33,7 +33,6 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
-		58323B89214952DB00F6DA17 /* Alamofire.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Alamofire.framework; path = Carthage/Build/iOS/Alamofire.framework; sourceTree = "<group>"; };
 		58A044132136D7BF005F83E3 /* SbrnForecast.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = SbrnForecast.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		58A044162136D7BF005F83E3 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		58A044182136D7BF005F83E3 /* CitiesVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CitiesVC.swift; sourceTree = "<group>"; };
@@ -74,7 +73,6 @@
 		58323B88214952DA00F6DA17 /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
-				58323B89214952DB00F6DA17 /* Alamofire.framework */,
 			);
 			name = Frameworks;
 			sourceTree = "<group>";
