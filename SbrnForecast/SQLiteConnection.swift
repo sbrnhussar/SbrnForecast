@@ -172,9 +172,15 @@ class SQLiteConnection{
     
     public func insert(this city: City){
         
-        let insert_city_query = "INSERT INTO city VALUES (\(city.get_woeid()), \'\(city.get_name())\', \'\(city.get_region())\', \'\(city.get_country())\')"
+        let name = city.get_name().replacingOccurrences(of: "'", with: "''", options: NSString.CompareOptions.literal, range: nil)
+        
+        let region = city.get_region().replacingOccurrences(of: "'", with: "''", options: NSString.CompareOptions.literal, range: nil)
+        
+        let country = city.get_country().replacingOccurrences(of: "'", with: "''", options: NSString.CompareOptions.literal, range: nil)
         
         let conn = SQLiteConnection.get_connection()
+        
+        let insert_city_query = "INSERT INTO city VALUES(\(city.get_woeid()), \'\(name)\', \'\(region)\', \'\(country)\')"
         
         if sqlite3_exec(conn, insert_city_query, nil, nil, nil) != SQLITE_OK {
             let errmsg = String(cString: sqlite3_errmsg(conn)!)
@@ -187,7 +193,13 @@ class SQLiteConnection{
     
     public func update(this city: City){
         
-        let update_city_query = "UPDATE city SET name = \'\(city.get_name())\', region = \'\(city.get_region())\', country = \'\(city.get_country())\' WHERE woeid = \'\(city.get_woeid())\'"
+        let name = city.get_name().replacingOccurrences(of: "'", with: "''", options: NSString.CompareOptions.literal, range: nil)
+        
+        let region = city.get_region().replacingOccurrences(of: "'", with: "''", options: NSString.CompareOptions.literal, range: nil)
+        
+        let country = city.get_country().replacingOccurrences(of: "'", with: "''", options: NSString.CompareOptions.literal, range: nil)
+        
+        let update_city_query = "UPDATE city SET name = \'\(name)\', region = \'\(region)\', country = \'\(country)\' WHERE woeid = \(city.get_woeid())"
         
         let conn = SQLiteConnection.get_connection()
         
