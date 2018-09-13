@@ -46,7 +46,9 @@ class CitiesVC: UIViewController, UITableViewDelegate, UITableViewDataSource {
     }
     
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+        
         let conn = SQLiteConnection()
+        
         conn.set_default_city(by: cities[indexPath.row].get_woeid())
         
         open_forecast_vc(for: cities[indexPath.row])
@@ -167,6 +169,8 @@ class CitiesVC: UIViewController, UITableViewDelegate, UITableViewDataSource {
     
     override func viewWillAppear(_ animated: Bool) {
         
+        self.view.backgroundColor = UIColor(patternImage: UIImage(named: "clouds.jpg")!)
+        self.cities_table_view.backgroundColor = UIColor.init(named: "GreyBlue")
         let conn = SQLiteConnection()
         
         cities = conn.load_cities()
@@ -182,7 +186,19 @@ class CitiesVC: UIViewController, UITableViewDelegate, UITableViewDataSource {
         
         let default_woeid = conn.get_default_woeid()
         
-        if !CitiesVC.first_load && default_woeid != nil {
+        
+        var existing_Kharkiv_flag = false
+        
+        for city in cities{
+            if city.get_name() == "Kharkiv"{
+                existing_Kharkiv_flag = true
+            }
+        }
+        
+        if !existing_Kharkiv_flag{
+            add_city(by: "Kharkiv")
+        }
+        else if !CitiesVC.first_load && default_woeid != nil {
             for city in cities{
                 if city.get_woeid() == default_woeid!{
                     open_forecast_vc(for: city)
@@ -190,6 +206,7 @@ class CitiesVC: UIViewController, UITableViewDelegate, UITableViewDataSource {
                 }
             }
         }
+        
         CitiesVC.first_load = true
     }
 }

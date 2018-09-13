@@ -26,7 +26,7 @@ class SQLiteConnection{
                 print("error opening database")
             }
             else{
-                
+                                
                 let create_table_query_city = "CREATE TABLE IF NOT EXISTS city (woeid INTEGER PRIMARY KEY NOT NULL, name TEXT NOT NULL, region TEXT NOT NULL, country TEXT NOT NULL)"
                 
                 if sqlite3_exec(buff_db, create_table_query_city, nil, nil, nil) != SQLITE_OK {
@@ -68,12 +68,12 @@ class SQLiteConnection{
             print("error droping table: \(errmsg)")
         }
         
-        if sqlite3_exec(dropped_db, "DROP table if exists day_weather", nil, nil, nil) != SQLITE_OK {
+        if sqlite3_exec(dropped_db, "DROP table if exists dayily_forecast", nil, nil, nil) != SQLITE_OK {
             let errmsg = String(cString: sqlite3_errmsg(dropped_db)!)
             print("error droping table: \(errmsg)")
         }
         
-        if sqlite3_exec(dropped_db, "DROP table if exists full_day_weather", nil, nil, nil) != SQLITE_OK {
+        if sqlite3_exec(dropped_db, "DROP table if exists full_forecast", nil, nil, nil) != SQLITE_OK {
             let errmsg = String(cString: sqlite3_errmsg(dropped_db)!)
             print("error droping table: \(errmsg)")
         }

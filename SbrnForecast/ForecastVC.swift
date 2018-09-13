@@ -178,6 +178,8 @@ class ForecastVC: UIViewController, UITableViewDelegate, UITableViewDataSource {
     }
     
     override func viewWillAppear(_ animated: Bool) {
+        self.view.backgroundColor = UIColor(patternImage: UIImage(named: "clouds.jpg")!)
+        self.daily_forecast_table_view.backgroundColor = UIColor.init(named: "GreyBlue")
         super.viewWillAppear(true)
         activity_indicator_view.center = self.view.center
         activity_indicator_view.isHidden = true
