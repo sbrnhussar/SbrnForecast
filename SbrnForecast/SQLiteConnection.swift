@@ -22,17 +22,6 @@ class SQLiteConnection{
             
             var buff_db: OpaquePointer?
             
-            let fileURL1 = try! FileManager.default.url(for: .documentDirectory, in: .userDomainMask, appropriateFor: nil, create: false) .appendingPathComponent("SbrnWeather.sqlite")
-            
-            var buff_db1: OpaquePointer?
-            
-            if sqlite3_open(fileURL1.path, &buff_db1) != SQLITE_OK {
-                print("error opening database")
-            }
-            else{
-                DROP(dropped_db: buff_db1!)
-            }
-            
             if sqlite3_open(fileURL.path, &buff_db) != SQLITE_OK {
                 print("error opening database")
             }
@@ -57,7 +46,7 @@ class SQLiteConnection{
                             print("error creating table: \(errmsg)")
                         }
                         else{
-                            let create_table_query_full_forecast = "CREATE TABLE IF NOT EXISTS full_forecast (ff_id INTEGER PRIMARY KEY AUTOINCREMENT, forecast_id INTEGER NOT NULL, avg_temp INTEGER NOT NULL, humidity INTEGER NOT NULL, wind_speed REAL NOT NULL, sunrise TEXT NOT NULL, sunset TEXT NOT NULL)"
+                            let create_table_query_full_forecast = "CREATE TABLE IF NOT EXISTS full_forecast (ff_id INTEGER PRIMARY KEY AUTOINCREMENT, forecast_id INTEGER NOT NULL, avg_temp INTEGER NOT NULL, humidity INTEGER NOT NULL, wind_speed REAL NOT NULL, wind_direction INTEGER NOT NULL, sunrise TEXT NOT NULL, sunset TEXT NOT NULL)"
                             if sqlite3_exec(buff_db, create_table_query_full_forecast, nil, nil, nil) != SQLITE_OK {
                                 let errmsg = String(cString: sqlite3_errmsg(buff_db)!)
                                 print("error creating table: \(errmsg)")
@@ -244,7 +233,7 @@ class SQLiteConnection{
                 print("INSERT ERROR - FULL: not FullForecast object")
             }
             else{
-                let insert_full_forecast_query = "INSERT INTO full_forecast (forecast_id, avg_temp, humidity, wind_speed, sunrise, sunset) VALUES (\(forecast_id), \(week_forecast[0].get_avg_temp()!), \(week_forecast[0].get_humidity()!), \(week_forecast[0].get_wind_speed()!), \'\(week_forecast[0].get_sunrise()!)\', \'\(week_forecast[0].get_sunset()!)\')"
+                let insert_full_forecast_query = "INSERT INTO full_forecast (forecast_id, avg_temp, humidity, wind_speed, wind_direction, sunrise, sunset) VALUES (\(forecast_id), \(week_forecast[0].get_avg_temp()!), \(week_forecast[0].get_humidity()!), \(week_forecast[0].get_wind_speed()!), \(week_forecast[0].get_wind_direction()!), \'\(week_forecast[0].get_sunrise()!)\', \'\(week_forecast[0].get_sunset()!)\')"
                 if sqlite3_exec(conn, insert_full_forecast_query, nil, nil, nil) != SQLITE_OK {
                     let errmsg = String(cString: sqlite3_errmsg(conn)!)
                     print("INSERT ERROR - FULL: \(errmsg)")
@@ -315,7 +304,7 @@ class SQLiteConnection{
                 sqlite3_prepare_v2(conn, select_full_forecast_query, -1, &select_full_forecast_statement, nil)
                 
                 if sqlite3_step(select_full_forecast_statement) == SQLITE_ROW{
-                    week_forecast.append(FullForecast(set_date: formatter.date(from: String(cString: sqlite3_column_text(select_forecast_statement, 2)))!, set_description: String(cString: sqlite3_column_text(select_forecast_statement, 3)), set_low_temp: Int(sqlite3_column_int(select_forecast_statement, 4)), set_high_temp: Int(sqlite3_column_int(select_forecast_statement, 5)), set_avg_temp: Int(sqlite3_column_int(select_full_forecast_statement, 2)), set_humidity: Int(sqlite3_column_int(select_full_forecast_statement, 3)), set_wind_speed: Float(sqlite3_column_double(select_full_forecast_statement, 4)), set_sunrise: String(cString: sqlite3_column_text(select_full_forecast_statement, 5)), set_sunset: String(cString: sqlite3_column_text(select_full_forecast_statement, 6))))
+                    week_forecast.append(FullForecast(set_date: formatter.date(from: String(cString: sqlite3_column_text(select_forecast_statement, 2)))!, set_description: String(cString: sqlite3_column_text(select_forecast_statement, 3)), set_low_temp: Int(sqlite3_column_int(select_forecast_statement, 4)), set_high_temp: Int(sqlite3_column_int(select_forecast_statement, 5)), set_avg_temp: Int(sqlite3_column_int(select_full_forecast_statement, 2)), set_humidity: Int(sqlite3_column_int(select_full_forecast_statement, 3)), set_wind_speed: Float(sqlite3_column_double(select_full_forecast_statement, 4)), set_wind_direction: Int(sqlite3_column_int(select_full_forecast_statement, 5)),set_sunrise: String(cString: sqlite3_column_text(select_full_forecast_statement, 6)), set_sunset: String(cString: sqlite3_column_text(select_full_forecast_statement, 7))))
                 }
                 else {
                     week_forecast.append(DailyForecast(set_date: formatter.date(from: String(cString: sqlite3_column_text(select_forecast_statement, 2)))!, set_description: String(cString: sqlite3_column_text(select_forecast_statement, 3)), set_low_temp: Int(sqlite3_column_int(select_forecast_statement, 4)), set_high_temp: Int(sqlite3_column_int(select_forecast_statement, 5))))

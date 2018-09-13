@@ -74,6 +74,10 @@ class DailyForecast {
         return nil
     }
     
+    public func get_wind_direction() -> Int?{
+        return nil
+    }
+    
     public func get_sunrise() -> String?{
         return nil
     }
@@ -104,7 +108,7 @@ class FullForecast: DailyForecast{
     
     //MARK: FullForecast variables
     
-    private var avg_temp, humidity: Int?
+    private var avg_temp, humidity, wind_direction: Int?
     private var wind_speed: Float?
     private var sunrise, sunset: String?
     
@@ -115,15 +119,17 @@ class FullForecast: DailyForecast{
         avg_temp = nil
         humidity = nil
         wind_speed = nil
+        wind_direction = nil
         sunrise = nil
         sunset = nil
         super.init()
     }
     
-    public init(set_date: Date,  set_description: String, set_low_temp: Int, set_high_temp: Int, set_avg_temp: Int, set_humidity: Int, set_wind_speed: Float, set_sunrise: String, set_sunset: String){
+    public init(set_date: Date,  set_description: String, set_low_temp: Int, set_high_temp: Int, set_avg_temp: Int, set_humidity: Int, set_wind_speed: Float, set_wind_direction: Int, set_sunrise: String, set_sunset: String){
         avg_temp = set_avg_temp
         humidity = set_humidity
         wind_speed = set_wind_speed
+        wind_direction = set_wind_direction
         sunrise = set_sunrise
         sunset = set_sunset
         super.init(set_date: set_date,  set_description: set_description, set_low_temp: set_low_temp, set_high_temp: set_high_temp)
@@ -133,6 +139,7 @@ class FullForecast: DailyForecast{
         avg_temp = copying_forecast.get_avg_temp()
         humidity = copying_forecast.get_humidity()
         wind_speed = copying_forecast.get_wind_speed()
+        wind_direction = copying_forecast.get_wind_direction()
         sunrise = copying_forecast.get_sunrise()
         sunset = copying_forecast.get_sunset()
         super.init(set_date: copying_forecast.get_date(),  set_description: copying_forecast.get_description(), set_low_temp: copying_forecast.get_low_temp(), set_high_temp: copying_forecast.get_high_temp())
@@ -142,6 +149,7 @@ class FullForecast: DailyForecast{
         avg_temp = nil
         humidity = nil
         wind_speed = nil
+        wind_direction = nil
         sunrise = nil
         sunset = nil
         super.init(set_date: copying_forecast.get_date(),  set_description: copying_forecast.get_description(), set_low_temp: copying_forecast.get_low_temp(), set_high_temp: copying_forecast.get_high_temp())
@@ -160,6 +168,10 @@ class FullForecast: DailyForecast{
     
     public override func get_wind_speed() -> Float{
         return wind_speed!
+    }
+    
+    public override func get_wind_direction() -> Int{
+        return wind_direction!
     }
     
     public override func get_sunrise() -> String{

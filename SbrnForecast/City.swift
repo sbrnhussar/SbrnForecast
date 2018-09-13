@@ -36,6 +36,14 @@ class City {
         week_forecast = set_week_forecast
     }
     
+    public init(copying_city: City){
+        woeid = copying_city.get_woeid()
+        name = copying_city.get_name()
+        region = copying_city.get_region()
+        country = copying_city.get_country()
+        week_forecast = copying_city.get_week_forecast()
+    }
+    
     
     // MARK: GET-functions
     
@@ -69,27 +77,16 @@ class City {
                 (data, response, error) in
                 
                 if data != nil {
-                    let decoder = JSONDecoder()
-                    let answer = try! decoder.decode(ForecastResponse.self, from: data!)
-                    
                     DispatchQueue.main.async {
+                        
+                        let buff_city = distribute(by: self.get_woeid(), info: data!)
+                        
                         //  Fill name of city
-                        self.name = answer.query.results.channel.location.city
-                        self.region = answer.query.results.channel.location.region
-                        self.country = answer.query.results.channel.location.country
+                        self.name = buff_city.get_name()
+                        self.region = buff_city.get_region()
+                        self.country = buff_city.get_country()
                         
-                        //  Fill the forecast
-                        let date_formatter = DateFormatter()
-                        date_formatter.dateFormat = "dd MMM yyyy"
-                        
-                        let curr_forecast = FullForecast(set_date: date_formatter.date(from: answer.query.results.channel.item.forecast[0].date)!, set_description: answer.query.results.channel.item.forecast[0].text, set_low_temp: Int(answer.query.results.channel.item.forecast[0].low)!, set_high_temp: Int(answer.query.results.channel.item.forecast[0].high)!, set_avg_temp: Int(answer.query.results.channel.item.condition.temp)!, set_humidity: Int(answer.query.results.channel.atmosphere.humidity)!, set_wind_speed: Float(answer.query.results.channel.wind.speed)!, set_sunrise: answer.query.results.channel.astronomy.sunrise, set_sunset: answer.query.results.channel.astronomy.sunset)
-                        
-                        self.week_forecast.removeAll()
-                        self.week_forecast.append(curr_forecast)
-                        
-                        for i in 1..<answer.query.results.channel.item.forecast.count{
-                            self.week_forecast.append(DailyForecast(set_date: date_formatter.date(from: answer.query.results.channel.item.forecast[i].date)!, set_description: answer.query.results.channel.item.forecast[i].text, set_low_temp: Int(answer.query.results.channel.item.forecast[i].low)!, set_high_temp: Int(answer.query.results.channel.item.forecast[i].high)!))
-                        }
+                        self.week_forecast = buff_city.get_week_forecast()
                         
                         let conn = SQLiteConnection()
                         conn.update(this: self)
