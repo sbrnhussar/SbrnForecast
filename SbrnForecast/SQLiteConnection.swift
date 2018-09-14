@@ -12,7 +12,7 @@ import SQLite3
 class SQLiteConnection{
     
     private static var db: OpaquePointer? = nil
-    
+    private static let date_format_str = "dd MMM yyyy, EEEE"
     //MARK: like "get instance"
     
     public static func get_connection () -> OpaquePointer{
@@ -26,7 +26,9 @@ class SQLiteConnection{
                 print("error opening database")
             }
             else{
-                                
+                
+                DROP(dropped_db: buff_db!)
+                
                 let create_table_query_city = "CREATE TABLE IF NOT EXISTS city (woeid INTEGER PRIMARY KEY NOT NULL, name TEXT NOT NULL, region TEXT NOT NULL, country TEXT NOT NULL)"
                 
                 if sqlite3_exec(buff_db, create_table_query_city, nil, nil, nil) != SQLITE_OK {
@@ -210,7 +212,7 @@ class SQLiteConnection{
         sqlite3_exec(conn, "DELETE FROM daily_forecast WHERE woeid = \(city.get_woeid())", nil, nil, nil)
         
         let formatter = DateFormatter()
-        formatter.dateFormat = "dd MMM yyyy, EEE"
+        formatter.dateFormat = SQLiteConnection.date_format_str
         
         let week_forecast = city.get_week_forecast()
         for forecast in week_forecast{
@@ -288,7 +290,7 @@ class SQLiteConnection{
         var week_forecast = [DailyForecast]()
         
         let formatter = DateFormatter()
-        formatter.dateFormat = "dd MMM yyyy, EEE"
+        formatter.dateFormat = SQLiteConnection.date_format_str
         
         
         while sqlite3_step(select_forecast_statement) == SQLITE_ROW {
@@ -372,5 +374,10 @@ class SQLiteConnection{
         sqlite3_finalize(select_city_statement)
         
         return cities
+    }
+    
+    //  Get date format string
+    public static func get_date_format() -> String{
+        return SQLiteConnection.date_format_str
     }
 }

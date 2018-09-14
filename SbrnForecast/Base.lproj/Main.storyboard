@@ -6,6 +6,7 @@
     <dependencies>
         <deployment identifier="iOS"/>
         <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="14088"/>
+        <capability name="Named colors" minToolsVersion="9.0"/>
         <capability name="Safe area layout guides" minToolsVersion="9.0"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
@@ -71,12 +72,32 @@
                                                             <nil key="textColor"/>
                                                             <nil key="highlightedColor"/>
                                                         </label>
+                                                        <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="O2g-xI-H9v">
+                                                            <rect key="frame" x="0.0" y="0.0" width="343" height="2"/>
+                                                            <color key="backgroundColor" red="0.8495197632" green="0.89737739839999997" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                                            <constraints>
+                                                                <constraint firstAttribute="height" constant="2" id="Rm8-qq-bJC"/>
+                                                            </constraints>
+                                                        </view>
+                                                        <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="GS7-Cg-qca">
+                                                            <rect key="frame" x="0.0" y="41.5" width="343" height="2"/>
+                                                            <color key="backgroundColor" red="0.8495197632" green="0.89737739839999997" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                                            <constraints>
+                                                                <constraint firstAttribute="height" constant="2" id="qeG-bX-Stc"/>
+                                                            </constraints>
+                                                        </view>
                                                     </subviews>
-                                                    <color key="backgroundColor" red="0.55943187889685531" green="0.67305917752836797" blue="0.87916936532953371" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                                    <color key="backgroundColor" red="0.78139662529999998" green="0.84876728629999998" blue="0.96949886659999995" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                                     <constraints>
+                                                        <constraint firstAttribute="bottom" secondItem="GS7-Cg-qca" secondAttribute="bottom" id="1K4-Bk-V8b"/>
                                                         <constraint firstItem="Agu-HV-EPY" firstAttribute="top" secondItem="UFF-UB-5BV" secondAttribute="top" constant="11" id="8LF-8a-Dun"/>
+                                                        <constraint firstItem="O2g-xI-H9v" firstAttribute="top" secondItem="UFF-UB-5BV" secondAttribute="top" id="Ne2-ny-yrU"/>
+                                                        <constraint firstAttribute="trailing" secondItem="O2g-xI-H9v" secondAttribute="trailing" id="VAB-X6-3cb"/>
+                                                        <constraint firstItem="O2g-xI-H9v" firstAttribute="leading" secondItem="UFF-UB-5BV" secondAttribute="leading" id="VlJ-If-pKE"/>
                                                         <constraint firstAttribute="right" secondItem="Agu-HV-EPY" secondAttribute="right" constant="16" id="Vx0-fx-vcB"/>
+                                                        <constraint firstAttribute="trailing" secondItem="GS7-Cg-qca" secondAttribute="trailing" id="Y7n-0z-riP"/>
                                                         <constraint firstItem="Agu-HV-EPY" firstAttribute="left" secondItem="UFF-UB-5BV" secondAttribute="left" constant="16" id="clA-U4-sh4"/>
+                                                        <constraint firstItem="GS7-Cg-qca" firstAttribute="leading" secondItem="UFF-UB-5BV" secondAttribute="leading" id="xhT-rl-7HI"/>
                                                     </constraints>
                                                 </tableViewCellContentView>
                                                 <connections>
@@ -182,18 +203,21 @@
                                     </label>
                                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Humidity" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Xch-bV-83w">
                                         <rect key="frame" x="153.5" y="227.5" width="68.5" height="20.5"/>
+                                        <color key="backgroundColor" name="50%OpacityGreyBlue"/>
                                         <fontDescription key="fontDescription" type="system" pointSize="17"/>
                                         <nil key="textColor"/>
                                         <nil key="highlightedColor"/>
                                     </label>
                                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Wind info" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="vjS-bx-zoM">
                                         <rect key="frame" x="151.5" y="256" width="72.5" height="20.5"/>
+                                        <color key="backgroundColor" name="50%OpacityGreyBlue"/>
                                         <fontDescription key="fontDescription" type="system" pointSize="17"/>
                                         <nil key="textColor"/>
                                         <nil key="highlightedColor"/>
                                     </label>
                                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Sunrise, sunset info" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="bUR-7h-SjN">
                                         <rect key="frame" x="112.5" y="284.5" width="150.5" height="20.5"/>
+                                        <color key="backgroundColor" name="50%OpacityGreyBlue"/>
                                         <fontDescription key="fontDescription" type="system" pointSize="17"/>
                                         <nil key="textColor"/>
                                         <nil key="highlightedColor"/>
@@ -209,6 +233,21 @@
                                                     <rect key="frame" x="0.0" y="0.0" width="375" height="99.5"/>
                                                     <autoresizingMask key="autoresizingMask" flexibleMinX="YES" flexibleMaxX="YES" flexibleMinY="YES" flexibleMaxY="YES"/>
                                                     <subviews>
+                                                        <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="8bW-HO-PKX">
+                                                            <rect key="frame" x="0.0" y="0.0" width="375" height="2"/>
+                                                            <color key="backgroundColor" red="0.8495197632" green="0.89737739839999997" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                                            <constraints>
+                                                                <constraint firstAttribute="height" constant="2" id="xca-2v-sIi"/>
+                                                            </constraints>
+                                                        </view>
+                                                        <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="XBY-Iz-DAW">
+                                                            <rect key="frame" x="0.0" y="97.5" width="375" height="2"/>
+                                                            <color key="backgroundColor" red="0.8495197632" green="0.89737739839999997" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                                            <constraints>
+                                                                <constraint firstAttribute="height" constant="2" id="enW-ri-fIW"/>
+                                                                <constraint firstAttribute="height" relation="greaterThanOrEqual" constant="2" id="yVq-lN-f28"/>
+                                                            </constraints>
+                                                        </view>
                                                         <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" translatesAutoresizingMaskIntoConstraints="NO" id="P7t-0b-C3c">
                                                             <rect key="frame" x="8" y="8" width="359" height="83.5"/>
                                                             <subviews>
@@ -248,10 +287,16 @@
                                                     </subviews>
                                                     <color key="backgroundColor" red="0.6692131831" green="0.7593207609" blue="0.93693329020000005" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                                     <constraints>
+                                                        <constraint firstItem="8bW-HO-PKX" firstAttribute="top" secondItem="PCR-PC-dvU" secondAttribute="top" id="1jC-HO-sVI"/>
                                                         <constraint firstItem="P7t-0b-C3c" firstAttribute="leading" secondItem="PCR-PC-dvU" secondAttribute="leading" constant="8" id="35W-Rm-3He"/>
                                                         <constraint firstItem="P7t-0b-C3c" firstAttribute="top" secondItem="PCR-PC-dvU" secondAttribute="top" constant="8" id="4FJ-bt-rKS"/>
+                                                        <constraint firstAttribute="trailing" secondItem="XBY-Iz-DAW" secondAttribute="trailing" id="B2Y-ZR-eAS"/>
+                                                        <constraint firstItem="XBY-Iz-DAW" firstAttribute="leading" secondItem="PCR-PC-dvU" secondAttribute="leading" id="Jdv-sa-q1J"/>
                                                         <constraint firstAttribute="bottom" secondItem="P7t-0b-C3c" secondAttribute="bottom" constant="8" id="KML-kb-i6K"/>
+                                                        <constraint firstAttribute="bottom" secondItem="XBY-Iz-DAW" secondAttribute="bottom" id="nEE-Lb-wRg"/>
+                                                        <constraint firstItem="8bW-HO-PKX" firstAttribute="leading" secondItem="PCR-PC-dvU" secondAttribute="leading" id="q7e-c1-gvf"/>
                                                         <constraint firstAttribute="trailing" secondItem="P7t-0b-C3c" secondAttribute="trailing" constant="8" id="rXq-BQ-DEb"/>
+                                                        <constraint firstAttribute="trailing" secondItem="8bW-HO-PKX" secondAttribute="trailing" id="w6i-PD-7Xh"/>
                                                     </constraints>
                                                     <edgeInsets key="layoutMargins" top="0.0" left="0.0" bottom="0.0" right="0.0"/>
                                                 </tableViewCellContentView>
@@ -320,4 +365,9 @@
             <point key="canvasLocation" x="844" y="-11.244377811094454"/>
         </scene>
     </scenes>
+    <resources>
+        <namedColor name="50%OpacityGreyBlue">
+            <color red="0.80199998617172241" green="0.87400001287460327" blue="1" alpha="0.5" colorSpace="custom" customColorSpace="sRGB"/>
+        </namedColor>
+    </resources>
 </document>

@@ -48,7 +48,7 @@ class ForecastVC: UIViewController, UITableViewDelegate, UITableViewDataSource {
         cell.description_label.text = forecast.get_description()
         cell.temp_label.text = "\(forecast.get_low_temp())..\(forecast.get_high_temp()) ℃"
         let formatter = DateFormatter()
-        formatter.dateFormat = "dd MMM yyyy, EEE"
+        formatter.dateFormat = SQLiteConnection.get_date_format()
         cell.date_label.text = formatter.string(from: forecast.get_date())
         
         return cell
@@ -83,29 +83,30 @@ class ForecastVC: UIViewController, UITableViewDelegate, UITableViewDataSource {
             let task = URLSession.shared.dataTask(with: url) {
                 (data, response, error) in
                 
-                if data != nil {
-                    
-                    DispatchQueue.main.async {
-                        self.city = distribute(by: self.city.get_woeid(), info: data!)
+                DispatchQueue.main.async {
+                    if data != nil {
                         
-                        let conn = SQLiteConnection()
-                        conn.update(this: self.city)
-                        
-                        self.set_data(from: self.city)
-                        
-                        self.daily_forecast_table_view.reloadData()
-                        
-                        self.activity_indicator_view.stopAnimating()
+                        DispatchQueue.main.async {
+                            self.city = distribute(by: self.city.get_woeid(), info: data!)
+                            
+                            let conn = SQLiteConnection()
+                            conn.update(this: self.city)
+                            
+                            self.daily_forecast_table_view.reloadData()
+                            
+                        }
                     }
-                }
-                else{
-                    DispatchQueue.main.async {
-                        let alert = UIAlertController(title: "There isn't the Internet connection", message: "Please, fix it and try again.", preferredStyle: .alert)
-                        
-                        alert.addAction(UIAlertAction(title: "OK", style: .default, handler: nil))
-                        
-                        self.present(alert, animated: true)
+                    else{
+                        DispatchQueue.main.async {
+                            let alert = UIAlertController(title: "There isn't the Internet connection", message: "Please, fix it and try again.", preferredStyle: .alert)
+                            
+                            alert.addAction(UIAlertAction(title: "OK", style: .default, handler: nil))
+                            
+                            self.present(alert, animated: true)
+                        }
                     }
+                    self.set_data(from: self.city)
+                    self.activity_indicator_view.stopAnimating()
                 }
             }
             task.resume()
@@ -145,28 +146,29 @@ class ForecastVC: UIViewController, UITableViewDelegate, UITableViewDataSource {
     }
     
     private func set_data(from city: City){
-        
         region_label.text = "\(city.get_region()), \(city.get_country())"
         let curr_forecast = city.get_week_forecast()[0]
         if curr_forecast.check_full_forecast(){
+            //self.navigationController?.navigationItem.title = "Forecast for \(city.get_name())"
             city_label.text = "Forecast for \(city.get_name())"
             avg_temp_label.text = "\(curr_forecast.get_avg_temp()!) ℃"
-            humidity_label.text = "Humidity: \(curr_forecast.get_humidity()!)%"
+            humidity_label.text = " Humidity: \(curr_forecast.get_humidity()!)% "
             
-            wind_label.text = "Wind: \(curr_forecast.get_wind_speed()!) km/h to \(transform_direction(from: curr_forecast.get_wind_direction()!))"
-            sun_label.text = "Sunrise \(curr_forecast.get_sunrise()!)\t|\tSunset \(curr_forecast.get_sunset()!)"
+            wind_label.text = " Wind: \(curr_forecast.get_wind_speed()!) km/h to \(transform_direction(from: curr_forecast.get_wind_direction()!)) "
+            sun_label.text = " Sunrise \(curr_forecast.get_sunrise()!)\t|\tSunset \(curr_forecast.get_sunset()!) "
         }
         else{
+            //self.navigationController?.navigationItem.title = "Forecast(offline) for \(city.get_name())"
             city_label.text = "Forecast(offline) for \(city.get_name())"
             avg_temp_label.text = "\(curr_forecast.get_high_temp() - curr_forecast.get_low_temp()) ℃"
-            humidity_label.text = "Humidity: --%"
-            wind_label.text = "Wind speed: -- km/h to -"
-            sun_label.text = "Sunrise --:--\t|\tSunset --:--"
+            humidity_label.text = " Humidity: --% "
+            wind_label.text = " Wind speed: -- km/h to - "
+            sun_label.text = " Sunrise --:--\t|\tSunset --:-- "
         }
         descript_label.text = curr_forecast.get_description()
         
         let formatter = DateFormatter()
-        formatter.dateFormat = "dd MMM yyyy, EEE"
+        formatter.dateFormat = SQLiteConnection.get_date_format()
         curr_date_label.text = formatter.string(from: curr_forecast.get_date())
         
     }

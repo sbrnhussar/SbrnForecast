@@ -61,7 +61,7 @@ class CitiesVC: UIViewController, UITableViewDelegate, UITableViewDataSource {
             cities.remove(at: indexPath.row)
             cities_table_view.deleteRows(at: [indexPath], with: .fade)
         }
-    }
+    } 
     
     //MARK: Actions
     
@@ -171,12 +171,13 @@ class CitiesVC: UIViewController, UITableViewDelegate, UITableViewDataSource {
         
         self.view.backgroundColor = UIColor(patternImage: UIImage(named: "clouds.jpg")!)
         self.cities_table_view.backgroundColor = UIColor.init(named: "GreyBlue")
+        
         let conn = SQLiteConnection()
         
         cities = conn.load_cities()
         
         for city in cities{
-            city.update()
+            //city.update()
         }
     }
     
