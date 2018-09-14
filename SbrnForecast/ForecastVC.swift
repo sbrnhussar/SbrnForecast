@@ -10,20 +10,20 @@ import UIKit
 
 class ForecastVC: UIViewController, UITableViewDelegate, UITableViewDataSource {
     
-    @IBOutlet weak var activity_indicator_view: UIActivityIndicatorView!
+    @IBOutlet private weak var activity_indicator_view: UIActivityIndicatorView!
     
-    @IBOutlet weak var city_label: UILabel!
-    @IBOutlet weak var region_label: UILabel!
-    @IBOutlet weak var curr_date_label: UILabel!
-    @IBOutlet weak var avg_temp_label: UILabel!
-    @IBOutlet weak var descript_label: UILabel!
-    @IBOutlet weak var humidity_label: UILabel!
-    @IBOutlet weak var wind_label: UILabel!
-    @IBOutlet weak var sun_label: UILabel!
+    @IBOutlet private weak var city_label: UILabel!
+    @IBOutlet private weak var region_label: UILabel!
+    @IBOutlet private weak var curr_date_label: UILabel!
+    @IBOutlet private weak var avg_temp_label: UILabel!
+    @IBOutlet private weak var descript_label: UILabel!
+    @IBOutlet private weak var humidity_label: UILabel!
+    @IBOutlet private weak var wind_label: UILabel!
+    @IBOutlet private weak var sun_label: UILabel!
     
-    @IBOutlet weak var daily_forecast_table_view: UITableView!
+    @IBOutlet private weak var daily_forecast_table_view: UITableView!
     
-    var city: City = City()
+    private var city: City = City()
     
     //MARK: Navigation
     func numberOfSections(in tableView: UITableView) -> Int{
@@ -63,7 +63,7 @@ class ForecastVC: UIViewController, UITableViewDelegate, UITableViewDataSource {
         
         let conn = SQLiteConnection()
         
-        cities_vc.cities = conn.load_cities()
+        cities_vc.set_cities(conn.load_cities())
         
         self.present(cities_vc, animated: true, completion: nil)
     }
@@ -76,6 +76,7 @@ class ForecastVC: UIViewController, UITableViewDelegate, UITableViewDataSource {
     //MARK: Private methods
     private func refresh_view_data(){
         
+        activity_indicator_view.color = UIColor(named: "GreyBlue")
         activity_indicator_view.startAnimating()
         
         if let url = URL(string: "https://query.yahooapis.com/v1/public/yql?q=select%20*%20from%20weather.forecast%20where%20u%20%3D%20'c'%20and%20woeid%20in%20(select%20woeid%20from%20geo.places(1)%20where%20woeid%3D%22\(city.get_woeid())%22)&format=json&env=store%3A%2F%2Fdatatables.org%2Falltableswithkeys"){
@@ -85,28 +86,24 @@ class ForecastVC: UIViewController, UITableViewDelegate, UITableViewDataSource {
                 
                 DispatchQueue.main.async {
                     if data != nil {
+                        self.city = distribute(by: self.city.get_woeid(), info: data!)
                         
-                        DispatchQueue.main.async {
-                            self.city = distribute(by: self.city.get_woeid(), info: data!)
-                            
-                            let conn = SQLiteConnection()
-                            conn.update(this: self.city)
-                            
-                            self.daily_forecast_table_view.reloadData()
-                            
-                        }
+                        let conn = SQLiteConnection()
+                        conn.update(this: self.city)
+                        
+                        self.daily_forecast_table_view.reloadData()
+                        
                     }
                     else{
-                        DispatchQueue.main.async {
-                            let alert = UIAlertController(title: "There isn't the Internet connection", message: "Please, fix it and try again.", preferredStyle: .alert)
-                            
-                            alert.addAction(UIAlertAction(title: "OK", style: .default, handler: nil))
-                            
-                            self.present(alert, animated: true)
-                        }
+                        let alert = UIAlertController(title: "There isn't the Internet connection", message: "Please, fix it and try again.", preferredStyle: .alert)
+                        
+                        alert.addAction(UIAlertAction(title: "OK", style: .default, handler: nil))
+                        
+                        self.present(alert, animated: true)
                     }
                     self.set_data(from: self.city)
                     self.activity_indicator_view.stopAnimating()
+                    self.activity_indicator_view.color = UIColor.clear
                 }
             }
             task.resume()
@@ -173,6 +170,10 @@ class ForecastVC: UIViewController, UITableViewDelegate, UITableViewDataSource {
         
     }
     
+    public func set_city(_ set_city: City){
+        city = set_city
+    }
+    
     
     //MARK: Superclass functions
     override func viewDidLoad() {
@@ -181,19 +182,9 @@ class ForecastVC: UIViewController, UITableViewDelegate, UITableViewDataSource {
     
     override func viewWillAppear(_ animated: Bool) {
         self.view.backgroundColor = UIColor(patternImage: UIImage(named: "clouds.jpg")!)
-        self.daily_forecast_table_view.backgroundColor = UIColor.init(named: "GreyBlue")
+        self.daily_forecast_table_view.backgroundColor = UIColor.clear
         super.viewWillAppear(true)
-        activity_indicator_view.center = self.view.center
-        activity_indicator_view.isHidden = true
-        activity_indicator_view.hidesWhenStopped = true
-        activity_indicator_view.activityIndicatorViewStyle = UIActivityIndicatorViewStyle.gray
         
         refresh_view_data()
     }
-    
-    override func didReceiveMemoryWarning() {
-        super.didReceiveMemoryWarning()
-        // Dispose of any resources that can be recreated.
-    }
-
 }

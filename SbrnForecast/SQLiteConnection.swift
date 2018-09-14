@@ -13,8 +13,9 @@ class SQLiteConnection{
     
     private static var db: OpaquePointer? = nil
     private static let date_format_str = "dd MMM yyyy, EEEE"
-    //MARK: like "get instance"
     
+    
+    //MARK: like "get instance"
     public static func get_connection () -> OpaquePointer{
         
         if db == nil {
@@ -26,8 +27,6 @@ class SQLiteConnection{
                 print("error opening database")
             }
             else{
-                
-                DROP(dropped_db: buff_db!)
                 
                 let create_table_query_city = "CREATE TABLE IF NOT EXISTS city (woeid INTEGER PRIMARY KEY NOT NULL, name TEXT NOT NULL, region TEXT NOT NULL, country TEXT NOT NULL)"
                 
@@ -62,23 +61,6 @@ class SQLiteConnection{
             }
         }
         return db!
-    }
-    
-    private static func DROP(dropped_db: OpaquePointer){
-        if sqlite3_exec(dropped_db, "DROP table if exists city", nil, nil, nil) != SQLITE_OK {
-            let errmsg = String(cString: sqlite3_errmsg(dropped_db)!)
-            print("error droping table: \(errmsg)")
-        }
-        
-        if sqlite3_exec(dropped_db, "DROP table if exists dayily_forecast", nil, nil, nil) != SQLITE_OK {
-            let errmsg = String(cString: sqlite3_errmsg(dropped_db)!)
-            print("error droping table: \(errmsg)")
-        }
-        
-        if sqlite3_exec(dropped_db, "DROP table if exists full_forecast", nil, nil, nil) != SQLITE_OK {
-            let errmsg = String(cString: sqlite3_errmsg(dropped_db)!)
-            print("error droping table: \(errmsg)")
-        }
     }
     
     
@@ -320,32 +302,6 @@ class SQLiteConnection{
         sqlite3_finalize(select_forecast_statement)
         
         return week_forecast
-    }
-    
-    //  Load city by woeid
-    public func load_city(by woeid: Int) -> City?{
-        let select_city_query = "SELECT * from city WHERE woeid = \(woeid)"
-        
-        var select_city_statement: OpaquePointer? = nil
-        
-        let conn = SQLiteConnection.get_connection()
-        
-        sqlite3_prepare_v2(conn, select_city_query, -1, &select_city_statement, nil)
-        
-        var city: City? = nil
-        
-        if sqlite3_step(select_city_statement) == SQLITE_ROW{
-            
-            let woeid = Int(sqlite3_column_int(select_city_statement, 0))
-            let name = String(cString: sqlite3_column_text(select_city_statement, 1))
-            let region = String(cString: sqlite3_column_text(select_city_statement, 2))
-            let country = String(cString: sqlite3_column_text(select_city_statement, 3))
-            
-            city = City(set_woeid: woeid, set_name: name, set_region: region, set_country: country, set_week_forecast: load_forecast(by: woeid))
-        }
-        sqlite3_finalize(select_city_statement)
-        
-        return city
     }
     
     //  Load array of cities

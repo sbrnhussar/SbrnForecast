@@ -8,6 +8,7 @@
 
 import Foundation
 
+//  Distridutes values to City object's fields
 func distribute(by woeid: Int, info: Data) -> City{
     
     let decoder = JSONDecoder()
@@ -36,7 +37,7 @@ func distribute(by woeid: Int, info: Data) -> City{
     return City(set_woeid: woeid, set_name: name, set_region: region, set_country: country, set_week_forecast: week_forecast)
 }
 
-
+//  Structure for parsing a response about city's woeid
 struct CityResponse: Codable{
     
     var query: Query
@@ -54,6 +55,7 @@ struct CityResponse: Codable{
     }
 }
 
+//  Structure for parsing a city's forecast
 struct ForecastResponse: Codable{
     
     var query: Query

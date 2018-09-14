@@ -14,10 +14,10 @@ class CitiesVC: UIViewController, UITableViewDelegate, UITableViewDataSource {
     
     //MARK: Variables
     
-    @IBOutlet weak var cities_table_view: UITableView!
-    @IBOutlet weak var new_city_field: UITextField!
-    var cities: [City] = []
-    static var first_load: Bool = false
+    @IBOutlet private weak var cities_table_view: UITableView!
+    @IBOutlet private weak var new_city_field: UITextField!
+    private var cities: [City] = []
+    private static var first_load: Bool = false
     
     
     //MARK: Navigation
@@ -63,6 +63,7 @@ class CitiesVC: UIViewController, UITableViewDelegate, UITableViewDataSource {
         }
     } 
     
+    
     //MARK: Actions
     
     @IBAction func click_add_button(_ sender: UIButton) {
@@ -82,7 +83,7 @@ class CitiesVC: UIViewController, UITableViewDelegate, UITableViewDataSource {
         
         let forecast_vc = self.storyboard?.instantiateViewController(withIdentifier: "ForecastVC") as! ForecastVC
         
-        forecast_vc.city = selected_city
+        forecast_vc.set_city(selected_city)
         
         self.present(forecast_vc, animated: true, completion: nil)
     }
@@ -164,21 +165,20 @@ class CitiesVC: UIViewController, UITableViewDelegate, UITableViewDataSource {
         
     }
     
+    public func set_cities(_ set_cities: [City]){
+        cities = set_cities
+    }
     
     //MARK: Superclass functions
     
     override func viewWillAppear(_ animated: Bool) {
         
         self.view.backgroundColor = UIColor(patternImage: UIImage(named: "clouds.jpg")!)
-        self.cities_table_view.backgroundColor = UIColor.init(named: "GreyBlue")
+        self.cities_table_view.backgroundColor = UIColor.clear
         
         let conn = SQLiteConnection()
         
         cities = conn.load_cities()
-        
-        for city in cities{
-            //city.update()
-        }
     }
     
     override func viewDidAppear(_ animated: Bool) {
@@ -186,7 +186,6 @@ class CitiesVC: UIViewController, UITableViewDelegate, UITableViewDataSource {
         let conn = SQLiteConnection()
         
         let default_woeid = conn.get_default_woeid()
-        
         
         var existing_Kharkiv_flag = false
         
