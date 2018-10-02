@@ -9,7 +9,7 @@
 import Foundation
 
 //  Distridutes values to City object's fields
-func distribute(by woeid: Int, info: Data) -> City{
+func distribute_data(by woeid: Int, info: Data) -> City{
     
     let decoder = JSONDecoder()
     let answer = try! decoder.decode(ForecastResponse.self, from: info)

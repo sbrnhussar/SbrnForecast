@@ -96,6 +96,7 @@ class CitiesVC: UIViewController, UITableViewDelegate, UITableViewDataSource {
             let woeid_task = URLSession.shared.dataTask(with: woeid_url) {
                 (woeid_data, woeid_response, woeid_error) in
                 
+                //  Check for the existence of the Internet connection
                 if woeid_data != nil {
                     let decoder = JSONDecoder()
                     let woeid_answer = try! decoder.decode(CityResponse.self, from: woeid_data!)
@@ -116,7 +117,7 @@ class CitiesVC: UIViewController, UITableViewDelegate, UITableViewDataSource {
                                 
                                 DispatchQueue.main.async {
                                     
-                                    let city = distribute(by: woeid, info: forecast_data!)
+                                    let city = distribute_data(by: woeid, info: forecast_data!)
                                     
                                     let conn = SQLiteConnection()
                                     

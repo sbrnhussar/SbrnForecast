@@ -85,8 +85,9 @@ class ForecastVC: UIViewController, UITableViewDelegate, UITableViewDataSource {
                 (data, response, error) in
                 
                 DispatchQueue.main.async {
+                    //  Check for the existence of the Internet connection
                     if data != nil {
-                        self.city = distribute(by: self.city.get_woeid(), info: data!)
+                        self.city = distribute_data(by: self.city.get_woeid(), info: data!)
                         
                         let conn = SQLiteConnection()
                         conn.update(this: self.city)
@@ -144,29 +145,44 @@ class ForecastVC: UIViewController, UITableViewDelegate, UITableViewDataSource {
     
     private func set_data(from city: City){
         region_label.text = "\(city.get_region()), \(city.get_country())"
-        let curr_forecast = city.get_week_forecast()[0]
-        if curr_forecast.check_full_forecast(){
-            //self.navigationController?.navigationItem.title = "Forecast for \(city.get_name())"
-            city_label.text = "Forecast for \(city.get_name())"
-            avg_temp_label.text = "\(curr_forecast.get_avg_temp()!) ℃"
-            humidity_label.text = " Humidity: \(curr_forecast.get_humidity()!)% "
+        
+        if city.get_week_forecast().count > 0 {
+            let curr_forecast = city.get_week_forecast()[0]
+            if curr_forecast.check_full_forecast(){
+                
+                city_label.text = "Forecast for \(city.get_name())"
+                avg_temp_label.text = "\(curr_forecast.get_avg_temp()!) ℃"
+                humidity_label.text = " Humidity: \(curr_forecast.get_humidity()!)% "
+                
+                wind_label.text = " Wind: \(curr_forecast.get_wind_speed()!) km/h to \(transform_direction(from: curr_forecast.get_wind_direction()!)) "
+                sun_label.text = " Sunrise \(curr_forecast.get_sunrise()!)\t|\tSunset \(curr_forecast.get_sunset()!) "
+            }
+            else{
+                city_label.text = "Forecast(offline) for \(city.get_name())"
+                avg_temp_label.text = "\(curr_forecast.get_high_temp() - curr_forecast.get_low_temp()) ℃"
+                humidity_label.text = " Humidity: --% "
+                wind_label.text = " Wind speed: -- km/h to - "
+                sun_label.text = " Sunrise --:--\t|\tSunset --:-- "
+            }
             
-            wind_label.text = " Wind: \(curr_forecast.get_wind_speed()!) km/h to \(transform_direction(from: curr_forecast.get_wind_direction()!)) "
-            sun_label.text = " Sunrise \(curr_forecast.get_sunrise()!)\t|\tSunset \(curr_forecast.get_sunset()!) "
+            descript_label.text = curr_forecast.get_description()
+            
+            let formatter = DateFormatter()
+            formatter.dateFormat = SQLiteConnection.get_date_format()
+            curr_date_label.text = formatter.string(from: curr_forecast.get_date())
         }
         else{
-            //self.navigationController?.navigationItem.title = "Forecast(offline) for \(city.get_name())"
-            city_label.text = "Forecast(offline) for \(city.get_name())"
-            avg_temp_label.text = "\(curr_forecast.get_high_temp() - curr_forecast.get_low_temp()) ℃"
+            city_label.text = "Forecast(no data) for \(city.get_name())"
+            avg_temp_label.text = "-- ℃"
+            descript_label.text = "--"
+            
+            curr_date_label.text = "-- --- ----, ----"
             humidity_label.text = " Humidity: --% "
             wind_label.text = " Wind speed: -- km/h to - "
             sun_label.text = " Sunrise --:--\t|\tSunset --:-- "
         }
-        descript_label.text = curr_forecast.get_description()
         
-        let formatter = DateFormatter()
-        formatter.dateFormat = SQLiteConnection.get_date_format()
-        curr_date_label.text = formatter.string(from: curr_forecast.get_date())
+        
         
     }
     
