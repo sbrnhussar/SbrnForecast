@@ -289,7 +289,6 @@ class SQLiteConnection{
             let cal = Calendar(identifier: Calendar.Identifier.gregorian)
             let today = Date()
             let date = formatter.date(from: String(cString: sqlite3_column_text(select_forecast_statement, 2)))!
-            print("\(date) - \(today)(today)")
             if cal.compare(date, to: today, toGranularity: .day) == .orderedSame{
                 
                 let select_full_forecast_query = "SELECT * from full_forecast where forecast_id = \(Int(sqlite3_column_int(select_forecast_statement, 0)))"
@@ -297,17 +296,14 @@ class SQLiteConnection{
                 sqlite3_prepare_v2(conn, select_full_forecast_query, -1, &select_full_forecast_statement, nil)
                 
                 if sqlite3_step(select_full_forecast_statement) == SQLITE_ROW{
-                    print("for \(woeid) - \(formatter.date(from: String(cString: sqlite3_column_text(select_forecast_statement, 2)))!) is full forecast date")
                     week_forecast.append(FullForecast(set_date: formatter.date(from: String(cString: sqlite3_column_text(select_forecast_statement, 2)))!, set_description: String(cString: sqlite3_column_text(select_forecast_statement, 3)), set_low_temp: Int(sqlite3_column_int(select_forecast_statement, 4)), set_high_temp: Int(sqlite3_column_int(select_forecast_statement, 5)), set_avg_temp: Int(sqlite3_column_int(select_full_forecast_statement, 2)), set_humidity: Int(sqlite3_column_int(select_full_forecast_statement, 3)), set_wind_speed: Float(sqlite3_column_double(select_full_forecast_statement, 4)), set_wind_direction: Int(sqlite3_column_int(select_full_forecast_statement, 5)),set_sunrise: String(cString: sqlite3_column_text(select_full_forecast_statement, 6)), set_sunset: String(cString: sqlite3_column_text(select_full_forecast_statement, 7))))
                 }
                 else {
-                    print("for \(woeid) - \(formatter.date(from: String(cString: sqlite3_column_text(select_forecast_statement, 2)))!) is short forecast date")
                     week_forecast.append(DailyForecast(set_date: formatter.date(from: String(cString: sqlite3_column_text(select_forecast_statement, 2)))!, set_description: String(cString: sqlite3_column_text(select_forecast_statement, 3)), set_low_temp: Int(sqlite3_column_int(select_forecast_statement, 4)), set_high_temp: Int(sqlite3_column_int(select_forecast_statement, 5))))
                 }
                 sqlite3_finalize(select_full_forecast_statement)
             }
             else if cal.compare(date, to: today, toGranularity: .day) == .orderedDescending {
-                print("for \(woeid) - \(formatter.date(from: String(cString: sqlite3_column_text(select_forecast_statement, 2)))!) is forecast dates")
                 week_forecast.append(DailyForecast(set_date: formatter.date(from: String(cString: sqlite3_column_text(select_forecast_statement, 2)))!, set_description: String(cString: sqlite3_column_text(select_forecast_statement, 3)), set_low_temp: Int(sqlite3_column_int(select_forecast_statement, 4)), set_high_temp: Int(sqlite3_column_int(select_forecast_statement, 5))))
             }
         }
