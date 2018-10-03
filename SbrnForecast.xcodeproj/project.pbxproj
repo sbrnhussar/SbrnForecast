@@ -100,14 +100,9 @@
 			isa = PBXGroup;
 			children = (
 				58A044162136D7BF005F83E3 /* AppDelegate.swift */,
-				58A044182136D7BF005F83E3 /* CitiesVC.swift */,
-				58A0443A2136D88A005F83E3 /* DailyForecastTableViewCell.swift */,
-				58A0443C2136D89B005F83E3 /* City.swift */,
-				58A044402136D908005F83E3 /* YahooResponseStruct.swift */,
-				58A044422136D91B005F83E3 /* DailyForecast.swift */,
-				58A0443E2136D8CF005F83E3 /* SQLiteConnection.swift */,
-				58A044382136D85D005F83E3 /* CitiesTableViewCell.swift */,
-				58A044362136D835005F83E3 /* ForecastVC.swift */,
+				58E3439421651EF600B9E30A /* CommonClasses */,
+				58E3439221651EAE00B9E30A /* View */,
+				58E3439321651EBD00B9E30A /* DataInteraction */,
 				58A0441A2136D7BF005F83E3 /* Main.storyboard */,
 				58A0441D2136D7C1005F83E3 /* Assets.xcassets */,
 				58A0441F2136D7C1005F83E3 /* LaunchScreen.storyboard */,
@@ -123,6 +118,35 @@
 				58A0442D2136D7C2005F83E3 /* Info.plist */,
 			);
 			path = SbrnForecastTests;
+			sourceTree = "<group>";
+		};
+		58E3439221651EAE00B9E30A /* View */ = {
+			isa = PBXGroup;
+			children = (
+				58A0443A2136D88A005F83E3 /* DailyForecastTableViewCell.swift */,
+				58A044382136D85D005F83E3 /* CitiesTableViewCell.swift */,
+				58A044362136D835005F83E3 /* ForecastVC.swift */,
+				58A044182136D7BF005F83E3 /* CitiesVC.swift */,
+			);
+			path = View;
+			sourceTree = "<group>";
+		};
+		58E3439321651EBD00B9E30A /* DataInteraction */ = {
+			isa = PBXGroup;
+			children = (
+				58A0443E2136D8CF005F83E3 /* SQLiteConnection.swift */,
+				58A044402136D908005F83E3 /* YahooResponseStruct.swift */,
+			);
+			path = DataInteraction;
+			sourceTree = "<group>";
+		};
+		58E3439421651EF600B9E30A /* CommonClasses */ = {
+			isa = PBXGroup;
+			children = (
+				58A044422136D91B005F83E3 /* DailyForecast.swift */,
+				58A0443C2136D89B005F83E3 /* City.swift */,
+			);
+			path = CommonClasses;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */

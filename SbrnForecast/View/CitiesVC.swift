@@ -104,7 +104,6 @@ class CitiesVC: UIViewController, UITableViewDelegate, UITableViewDataSource {
                     DispatchQueue.main.async {
                         let woeid = Int(woeid_answer.query.results.place.woeid)!
                         
-                        
                         let forecast_url_str = "https://query.yahooapis.com/v1/public/yql?q=select%20*%20from%20weather.forecast%20where%20u%20%3D%20'c'%20and%20woeid%20%3D%20\(String(describing: woeid))&format=json&env=store%3A%2F%2Fdatatables.org%2Falltableswithkeys"
                         
                         let forecast_url = URL(string: forecast_url_str)

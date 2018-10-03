@@ -23,27 +23,27 @@ class SbrnForecastTests: XCTestCase {
     }
     
     //MARK: Tests
-    func test_full_forecast_init_succeed(){
+    func full_forecast_init_succeed(){
         
     }
     
-    func test_full_forecast_init_fail(){
+    func full_forecast_init_fail(){
         
     }
     
-    func test_daily_forecast_init_succeed(){
+    func daily_forecast_init_succeed(){
         
     }
     
-    func test_daily_forecast_init_fail(){
+    func daily_forecast_init_fail(){
         
     }
     
-    func test_city_init_succeed(){
+    func city_init_succeed(){
         
     }
     
-    func test_city_init_fail(){
+    func city_init_fail(){
         
     }
 }
